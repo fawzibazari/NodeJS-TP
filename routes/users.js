@@ -1,9 +1,20 @@
 var express = require('express');
+const {register, login} = require('../controller/LoginController')
 var router = express.Router();
+const userModel = require("../models/models");
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', async function(request, response) {
+  const users = await userModel.find({});
+  try {
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error);
+  }
 });
+
+// Create a new user
+router.post("/register", register );
+router.post("/login", login );
 
 module.exports = router;

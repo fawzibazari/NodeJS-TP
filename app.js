@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const dotenv = require('dotenv');
+const mongoose = require("mongoose");
+dotenv.config()
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -10,6 +14,19 @@ var registerRouter = require('./routes/register');
 var homeRouter = require('./routes/home');
 var addContactRouter = require('./routes/addContact');
 var infoContactRouter = require('./routes/infoContact');
+
+
+
+//Mongoose connection
+mongoose.connect(
+  process.env.MONGO_URL, 
+);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+  console.log("Connected successfully");
+});
 var app = express();
 
 // view engine setup
@@ -30,6 +47,10 @@ app.use('/home/addContact', addContactRouter);
 app.use('/home/infoContact', infoContactRouter);
 
 
+//Contact:
+const studentrouter= require("./routes/contacts");
+app.use('/contact',studentrouter)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -45,5 +66,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+console.log('Server is running at http://localhost:3000/ 😁😁');
 module.exports = app;
