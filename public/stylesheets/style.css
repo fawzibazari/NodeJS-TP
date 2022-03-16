@@ -1,8 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 100vw;
+  text-align: center;
+  padding: 100px;
+
 }
 
-a {
-  color: #00B7FF;
+.marge{
+  margin-top:2%
 }

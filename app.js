@@ -10,6 +10,10 @@ dotenv.config()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var registerRouter = require('./routes/register');
+var homeRouter = require('./routes/home');
+var addContactRouter = require('./routes/addContact');
+var infoContactRouter = require('./routes/infoContact');
 
 
 
@@ -23,7 +27,6 @@ db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
 });
-
 var app = express();
 
 // view engine setup
@@ -38,6 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/register', registerRouter);
+app.use('/home', homeRouter);
+app.use('/home/addContact', addContactRouter);
+app.use('/home/infoContact', infoContactRouter);
+
 
 //Contact:
 const studentrouter= require("./routes/contacts");

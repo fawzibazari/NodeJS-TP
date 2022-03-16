@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+    <%- include('../../partials/header'); %>
+<main>
+    <div class="container">
+      Menu
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for (item of test) { %>
+          <tr>
+            <th scope="row"><%= item.id %></th>
+            <td><%= item.username %></td>
+            <td><%= item.mail %></td>
+            <td> <%= item.phone %></td>
+            <td> <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-primary">Update</a>
+                <butto OnClick="alert('delete')"n type="button" class="btn btn-danger">Delate</button></td>
+          </tr>
+          <% } %>
+      
+        </tbody>
+      </table>
+    </div>
+</main>
+   <%- include('../../partials/footer'); %> 
+</body>
+</html>

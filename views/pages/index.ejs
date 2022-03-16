@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+    <%- include('../partials/header'); %>
+<main>
+    <div class="container">
+        <div class="wrapper" style="text-align: -webkit-center;">
+            <form action="/" method="post" name="Login_Form" class="form-signin" style="width: 30%;">
+                <h3 class="form-signin-heading marge">Welcome! Please Sign In</h3>
+
+                <input type="text" class="form-control marge" name="email" placeholder="Email Address" required="" autofocus="" />
+                <input type="password" class="form-control marge" name="password" placeholder="Password" required=""/>
+                <p>Vous n'avez pas de compte ? <a href="/register">S'inscrire !</a></p>
+
+                <button class="btn btn-lg btn-primary btn-block marge" name="Submit" value="Login" type="Submit">Login</button>
+            </form>
+        </div>
+    </div>
+</main>
+   <%- include('../partials/footer'); %> 
+</body>
+</html>
