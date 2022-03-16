@@ -20,10 +20,32 @@
 
                 <button class="btn btn-lg btn-primary btn-block marge" name="Submit" value="Register" type="Submit">Update</button>
             </form>
+
+             <p><label>First name</label><input type="text" name="first_name" size="40"></p>
+        <p><label>Last name</label><input type="text" name="last_name" size="40"></p>
+            <!-- <p><label>Birthday</label><input type="text" name="birthday" size="40"></p>
+            <p><label>Gender</label><select name="gender">
+                <option></option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                </select></p> -->
+        </fieldset>
+        <fieldset>
+            <legend>Home</legend>
+            <p><label>Street and number</label><input type="text" name="home_street" size="40"></p>
+            <p><label>City</label><input type="text" name="home_city" size="40"></p>
+            <p><label>Postal code</label><input type="text" name="home_region" size="40"></p>
+            <p><label>Region</label><input type="text" name="home_post" size="40"></p>
+            <p><label>Country</label><input type="text" name="home_country" size="40"></p>
+            <p><label>Telephone</label><input type="text" name="home_tel" size="40"></p>
+            <p><label>E-mail</label><input type="text" name="home_email" size="40"></p>
+            <p><label>Website</label><input type="text" name="home_url" size="40"></p>
+        </fieldset>
         </div>
 
         <% }} %>
     </div>
+    <img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">
 </main>
    <%- include('../../partials/footer'); %> 
 </body>
