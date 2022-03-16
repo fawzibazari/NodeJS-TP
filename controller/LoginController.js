@@ -17,13 +17,26 @@ async function login(req, res, next) {
     const {username, password} = req.body;
     userServices.login({username, password}).then(
         user => {
-            user ? res.json(user): res.json({error: 'Username ou password est incorrect'});
-
+            if (user) {
+                res.json(user)
+                console.log(user)
+                return user
+            } else {
+                res.json({error: 'Username ou password est incorrect'});
+            }
         }).catch(err => next(err))
+
+    }
+
+    async function findById(req, res, next) {
+        userServices.getById(req.params.id).then(
+            (user) => res.json(user)
+        ).catch(err => next(err))
     }
 
 
 module.exports = {
     register,
-    login
+    login,
+    findById
    };

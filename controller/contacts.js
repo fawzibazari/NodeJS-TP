@@ -1,4 +1,7 @@
 const Contacts = require('../models/contacts')
+const userModel = require("../models/models");
+const {login} = require('../controller/LoginController')
+
 
 const getcontacts = async (req, res) => {
     try {
@@ -20,8 +23,8 @@ const createcontact =  async (req, res) => {
         created_on:req.body.created_on
 })
     try {
-        await newcontact.save();
-res.status(201).json(newcontact);
+          await newcontact.save();
+        res.status(201).json(newcontact);
 } catch(error) {
         res.status(400).json({ message : error.message});
     }

@@ -1,5 +1,5 @@
 var express = require('express');
-const {register, login} = require('../controller/LoginController')
+const {register, login,findById} = require('../controller/LoginController')
 var router = express.Router();
 const userModel = require("../models/models");
 
@@ -16,5 +16,6 @@ router.get('/', async function(request, response) {
 // Create a new user
 router.post("/register", register );
 router.post("/login", login );
+router.get("/:id", findById );
 
 module.exports = router;
