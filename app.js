@@ -3,9 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require("mongoose");
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+
+
+//Mongoose connection
+mongoose.connect(
+  `mongodb+srv://Fawzi:FawziBazari@cluster0.ld6ts.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, 
+);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+  console.log("Connected successfully");
+});
 
 var app = express();
 
@@ -37,5 +52,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+console.log('lisetning on port http://localhost:3000/');
 module.exports = app;
