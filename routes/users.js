@@ -1,10 +1,15 @@
-var express = require('express');
-const {register, login,findById} = require('../controller/LoginController')
+var express = require("express");
+const {
+  register,
+  login,
+  findById,
+  newUserContact,
+} = require("../controller/user");
 var router = express.Router();
 const userModel = require("../models/models");
 
 /* GET users listing. */
-router.get('/', async function(request, response) {
+router.get("/", async function (request, response) {
   const users = await userModel.find({});
   try {
     response.send(users);
@@ -14,8 +19,9 @@ router.get('/', async function(request, response) {
 });
 
 // Create a new user
-router.post("/register", register );
-router.post("/login", login );
-router.get("/:id", findById );
+router.post("/register", register);
+router.post("/login", login);
+router.get("/:id", findById);
+router.post("/:id/contact", newUserContact);
 
 module.exports = router;
