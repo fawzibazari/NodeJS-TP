@@ -1,28 +1,146 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <%- include('../../partials/head'); %>
 </head>
-<body class="container">
+<body class="container" onload="vcard.save()">
     <%- include('../../partials/header'); %>
 <main>
+    <div class="zima">
     <div class="container">
       <% for (item of test) { 
           if(item.id == id){
         %>
           <div class="wrapper" style="text-align: -webkit-center;">
-            <form action="/login" method="post" name="Login_Form" class="form-signin" style="width: 30%;">
-                <h3 class="form-signin-heading marge">Please Update</h3>
-
-                <input type="text" class="form-control marge" value="<%= item.mail %>" name="mail" placeholder="<%= item.mail %>" required="" autofocus="" />
-                <input type="text" class="form-control marge" value="<%= item.username %>"  name="name" placeholder="Name" required=""/>
-                <input type="text" class="form-control marge" value="<%= item.phone %>"  name="name" placeholder="Name" required=""/>
-
-                <button class="btn btn-lg btn-primary btn-block marge" name="Submit" value="Register" type="Submit">Update</button>
-            </form>
+                <h3 class="form-signin-heading marge">Info User</h3>
+                <label for="mail">Mail :</label>
+                <p id="mail" name="mail"><%= item.mail %></p>
+                <label for="username">Name :</label>
+                <p id="username" name="username"><%= item.username %></p>
+                <label for="phone">phone :</label>
+                <p id="phone" class="phone"><%= item.phone %></p>
+                <button onclick="getPDFa()" class="btn btn-lg btn-primary btn-block marge" >generer le PDF</button>
         </div>
+
+        
+        <script>
+            function getPDFa() {
+            var doc = new jsPDF();
+                var imgData = document.getElementById("qr").src
+
+             var specialElementHandlers = {
+                '#getPDF': function(element, renderer){
+                return true;
+                },
+            '.controls': function(element, renderer){
+                 return true;
+                }
+            };
+      
+        doc.addImage(imgData, 'JPEG', 120, 10, 80, 80);
+        doc.fromHTML($('.zima').get(0), 15, 15, {
+          'width': 100, 
+          'elementHandlers': specialElementHandlers
+        });
+      
+        doc.save('<%= item.username %>.pdf');
+      }
+    
+      console.log()
+        </script>
+        <script>
+            console.log(document.getElementById("username").textContent)
+            console.log(document.getElementById("mail").textContent)
+
+            var vcard= {
+      str_start:'BEGIN:VCARD\nVERSION:3.0\n',
+      str_vcard:'BEGIN:VCARD\nVERSION:3.0\n',
+      str_end:'\nEND:VCARD',
+      goog_chart:'http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=',
+      username : document.getElementById("username").textContent,
+      phone : document.getElementById("phone").textContent,
+      mail : document.getElementById("mail").textContent,
+      form:[],
+      get_field: function(field){
+          for(var i in vcard.form){
+              if(vcard.form[i].name === field){ 
+                  return vcard.form[i].value.replace(/^\s+|\s+$/g,"");
+              } 
+          }
+      },
+      add_you: function(){
+          var first_name = vcard.username;
+          
+          vcard.str_vcard += 'N:'+first_name+'\n'+
+                              'FN:'+first_name;
+          // TODO convert date to american format
+  
+      },
+      add_tel: function(){
+     var home = vcard.phone;
+        console.log(home)
+        if(home !== ''){ vcard.str_vcard += '\nTEL;TYPE=home:'+home; }
+        
+    },
+    add_email: function(){
+       var home = vcard.home;
+         
+        
+        if(home !== ''){ vcard.str_vcard += '\nEMAIL;TYPE=internet,home:'+home; }
+        
+    },
+  
+      required_check: function(){
+          var first_name = vcard.get_field("first_name"),
+              msg = 'Field%FIELD% %NAME% %VERB% required.',
+              fields = [];
+          
+          if(first_name === ''){ fields.push('First name'); }
+          
+          if(fields.length === 0){ return ''; }
+          
+          msg = msg.replace('%NAME%',fields.join(', '));
+          
+          msg = msg.replace('%FIELD%',(fields.length === 1) ? '' : 's');
+          
+          msg = msg.replace('%VERB%',(fields.length === 1) ? 'is' : 'are'); 
+              
+          return msg;
+      },
+      save: function(){
+          // vcard.form = $('form').serializeArray();
+          var required_check_output = vcard.required_check();
+          
+          vcard.add_you();
+          vcard.add_tel();
+        //   vcard.add_email();
+          vcard.str_vcard += vcard.str_end;
+       
+          document.getElementById("qr").src=vcard.goog_chart+vcard.str_vcard.replace(/\n/g,'%0A');
+          vcard.str_vcard = vcard.str_start;
+          console.log(JSON.stringify(vcard))
+  
+      },
+    }
+        </script>
         <% }} %>
     </div>
+
+    <!-- <img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
+
+</div><script type="text/javascript" src="libs/png_support/zlib.js"></script>
+<script type="text/javascript" src="libs/png_support/png.js"></script>
+<script type="text/javascript" src="jspdf.plugin.addimage.js"></script>
+<script type="text/javascript" src="jspdf.plugin.png_support.js"></script>
+<script type="text/javascript" src="jspdf.js"></script>
+<img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr">
+
+    <!-- <a href="http://localhost:3000/home/infoContact/1.pdf" download> Télecharger mon fichier</a> -->
 </main>
    <%- include('../../partials/footer'); %> 
 </body>
