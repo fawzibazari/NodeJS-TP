@@ -4,9 +4,12 @@ const {
   login,
   findById,
   newUserContact,
+  GenerateExcel,
 } = require("../controller/user");
 var router = express.Router();
 const userModel = require("../models/models");
+const passport = require("passport");
+
 
 /* GET users listing. */
 router.get("/", async function (request, response) {
@@ -19,9 +22,17 @@ router.get("/", async function (request, response) {
 });
 
 // Create a new user
+router.get("/register", (req, res) => res.render("pages/register"));
 router.post("/register", register);
-router.post("/login", login);
+router.get("/login", (req, res) => res.render("pages/login"));
+router.post('/login' , (req, res, next)=> {
+  passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+})(req, res, next);
+});
 router.get("/:id", findById);
+router.get("/:id/excel", GenerateExcel);
 router.post("/:id/contact", newUserContact);
 
 module.exports = router;
