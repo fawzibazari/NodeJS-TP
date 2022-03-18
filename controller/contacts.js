@@ -29,7 +29,31 @@ const createcontact =  async (req, res) => {
     }
 }
 
+
+
+//Suppression d'un contact
+const deletecontact = async (req, res) => {
+    console.log("debut")
+    const user = await userModel.findById(req.user.id)
+    const contact = await Contacts.findByIdAndDelete(req.params.contact_id)
+    // const usercontact = await Contacts.findByIdAndDelete(req.params.contact_id)
+
+    if(!user){
+        console.log("pas bon")
+        return res.status(400).send("Le contact n'existe pas")
+    }
+    else{
+        console.log("ok")
+      //mise à jour de la table
+      await userModel.findByIdAndUpdate(req.user.id, {
+        $push: { contacts: contact },
+      });
+        await res.send(contact);
+        console.log("fin")
+    }
+}
 module.exports = {
     getcontacts,
-    createcontact
+    createcontact,
+    deletecontact
 }

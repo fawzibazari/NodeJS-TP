@@ -6,9 +6,7 @@ const userServices = require("../services/User.service");
 router.get('/', function(req, res, next) {
 
   let table = [];
-console.log("req.user.id")
 
-console.log(req.user.id)
   userServices.getById(req.user.id).then(async (user) => {
     for (const key in user.contacts) {
       const ContactObject = user.contacts[key];
@@ -16,7 +14,6 @@ console.log(req.user.id)
       table.push(newContact);
     }
     // res.json(table);
-    console.log(table)
     res.render('pages/Home/home', { title: 'Express',test:table });
   });
   

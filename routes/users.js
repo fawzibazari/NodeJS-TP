@@ -8,6 +8,10 @@ const {
   GenerateExcel,
   getAllUserContacts
 } = require("../controller/user");
+
+const {
+  deletecontact
+} = require("../controller/contacts");
 var router = express.Router();
 const userModel = require("../models/models");
 const passport = require("passport");
@@ -35,6 +39,8 @@ router.post('/login' , (req, res, next)=> {
     failureRedirect: '/',
 })(req, res, next);
 });
+// router.get('/home')
+router.get('/home/delete/:contact_id', deletecontact, (req, res) => res.render("pages/Home/home") );
 router.get("/:id", findById);
 router.get("/:id/excel", GenerateExcel);
 router.get("/:id/GetContact", getAllUserContacts), (req, res) => res.render("pages/Home/home",{test:table});
