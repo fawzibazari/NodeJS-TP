@@ -27,7 +27,7 @@ router.get("/", async function (request, response) {
 router.get("/register", (req, res) => res.render("pages/register"));
 router.post("/register", register);
 router.get("/home/addContact", (req, res) => res.render("pages/Home/addContact"));
-router.post("/home/addContact", addContact);
+router.post("/home/addContact", newUserContact);
 router.get("/login", (req, res) => res.render("pages/login"));
 router.post('/login' , (req, res, next)=> {
   passport.authenticate('local', {

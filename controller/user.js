@@ -139,13 +139,13 @@ async function getAllUserContacts(req, res, next) {
 }
 async function newUserContact(req, res, next) {
   const newContact = new Contacts(req.body);
-  newContact.user = await User.findById(req.params.id);
+  newContact.user = await User.findById(req.user.id);
   await newContact.save();
 
-  const user = await User.findByIdAndUpdate(req.params.id, {
+  const user = await User.findByIdAndUpdate(req.user.id, {
     $push: { contacts: newContact },
   });
-
+  res.redirect("/home");
   res.status(200).json(newContact);
 }
 
