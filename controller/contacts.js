@@ -1,6 +1,5 @@
 const Contacts = require('../models/contacts')
 const userModel = require("../models/models");
-const {login} = require('../controller/LoginController')
 
 
 const getcontacts = async (req, res) => {
