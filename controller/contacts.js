@@ -32,33 +32,26 @@ const createcontact =  async (req, res) => {
 
 //Suppression d'un contact
 const deletecontact = async (req, res) => {
-    console.log("debut")
     const user = await userModel.findById(req.user.id)
     const contact = await Contacts.findByIdAndDelete(req.params.contact_id)
     // const usercontact = await Contacts.findByIdAndDelete(req.params.contact_id)
 
     if(!user){
-        console.log("pas bon")
         return res.status(400).send("Le contact n'existe pas")
     }
     else{
-        console.log("ok")
       //mise à jour de la table
       await userModel.findByIdAndUpdate(req.user.id, {
         $push: { contacts: contact },
       });
         res.redirect("/home");  
-        console.log("fin")
     }
 }
 
 
 //Mise à jour d'un contact
 const updateContact = async (req, res) => {
-    // console.log("updateContact")
-    // console.log(req.body.id_contact)
     const id = req.body.id_contact
-    console.log(req.user.id)
     const user = await Contacts.findById(req.user.id)
     const contact = await Contacts.findByIdAndUpdate(
         id,
@@ -75,7 +68,6 @@ const updateContact = async (req, res) => {
     }
     else{
         res.redirect("/home");
-        await res.send(contact);
     }
   }
   

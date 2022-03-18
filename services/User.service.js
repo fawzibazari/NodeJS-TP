@@ -1,7 +1,6 @@
 let bcrypt = require('bcryptjs');
 const userModel = require("../models/models");
 
-const auth = require('../utils/jwt')
 
 async function register(params){
     const user = new userModel(params)
@@ -19,7 +18,6 @@ async function login ({username, password}) {
 
 async function getById(id) {
     const user = await userModel.findById(id);
-    console.log(user);
     return user.toJSON()
 }
 module.exports = {

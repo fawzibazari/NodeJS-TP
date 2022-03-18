@@ -33,7 +33,6 @@ async function register(req, res, next) {
       });
     });
   });
-  console.log(newUser);
   // res.send('hellodd')
 }
 
@@ -62,7 +61,6 @@ async function addContact(req, res, next) {
       });
   //   });
   // });
-  console.log(newUser);
   // res.send('hellodd')
 }
 
@@ -91,8 +89,6 @@ async function GenerateExcel(req, res, next) {
     const ExcelStringArr = await JSON.stringify(table);
 
     const ExcelFinalArr = JSON.parse(ExcelStringArr)
-
-    console.log(ExcelFinalArr);
 
     //définir les colonne
     const headingColumnNames = [

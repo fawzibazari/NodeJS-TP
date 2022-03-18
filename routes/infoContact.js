@@ -18,7 +18,6 @@ router.get('/:id', function(req, res, next) {
         table.push(newContact);
       }
       // res.json(table);
-      console.log(table)
       res.render('pages/Home/infoContact', { title: 'Express',test:table,id:id });
     });
 

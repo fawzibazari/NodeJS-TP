@@ -48,15 +48,11 @@
           'elementHandlers': specialElementHandlers
         });
       
-        doc.save('<%= item.username %>.pdf');
+        doc.save('<%= item.name %>.pdf');
       }
     
-      console.log()
         </script>
         <script>
-            console.log(document.getElementById("username").textContent)
-            console.log(document.getElementById("mail").textContent)
-
             var vcard= {
       str_start:'BEGIN:VCARD\nVERSION:3.0\n',
       str_vcard:'BEGIN:VCARD\nVERSION:3.0\n',
@@ -83,7 +79,6 @@
       },
       add_tel: function(){
      var home = vcard.phone;
-        console.log(home)
         if(home !== ''){ vcard.str_vcard += '\nTEL;TYPE=home:'+home; }
         
     },
@@ -123,7 +118,6 @@
        
           document.getElementById("qr").src=vcard.goog_chart+vcard.str_vcard.replace(/\n/g,'%0A');
           vcard.str_vcard = vcard.str_start;
-          console.log(JSON.stringify(vcard))
   
       },
     }

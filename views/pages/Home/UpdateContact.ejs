@@ -10,7 +10,7 @@
         <div class="wrapper" style="text-align: -webkit-center;">
             <form action="<%= id %>" method="post" name="Login_Form" class="form-signin" style="width: 30%;">
                 <h3 class="form-signin-heading marge">Update Contact !</h3>
-                <input type="text" class="form-control marge" name="id_contact" placeholder="Username" value="<%= id %>" autofocus="" />
+                <input type="hidden" class="form-control marge" name="id_contact" placeholder="Username" value="<%= id %>" autofocus="" />
                 <input type="text" class="form-control marge" name="name" placeholder="name" required="" autofocus="" />
                 <input type="text" class="form-control marge" name="firstname" placeholder="firstname" required=""/>
                 <input type="text" class="form-control marge" name="email" placeholder="email" required=""/>
