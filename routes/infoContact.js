@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../cont');
-var vCardsJS = require('vcards-js')
-const { jsPDF } = require("jspdf")
 /* GET home page. */
 router.get('/:id', function(req, res, next) {
     id = req.params.id 
