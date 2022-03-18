@@ -1,66 +1,26 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <%- include('../../partials/head'); %>
 </head>
 <body class="container">
-    <%- include('../../partials/header'); %>
+    <%- include('../../partials/headerco'); %>
 <main>
-    <div class="zima">
     <div class="container">
-      <% for (item of test) { 
-          if(item.id == id){
-        %>
-          <div class="wrapper" style="text-align: -webkit-center;">
-            <form action="/login" method="post" name="Login_Form" class="form-signin" style="width: 30%;">
-                <h3 class="form-signin-heading marge">Please Update</h3>
-<p><%= item.mail %></p>
-                <input type="text" class="form-control marge" value="<%= item.mail %>" name="mail" placeholder="<%= item.mail %>" required="" autofocus="" />
-                <input type="text" class="form-control marge" value="<%= item.username %>"  name="name" placeholder="Name" required=""/>
-                <input type="text" class="form-control marge" value="<%= item.phone %>"  name="name" placeholder="Name" required=""/>
-
-                <button class="btn btn-lg btn-primary btn-block marge" name="Submit" value="Register" type="Submit">generer le PDF</button>
+        <div class="wrapper" style="text-align: -webkit-center;">
+            <form action="<%= id %>" method="post" name="Login_Form" class="form-signin" style="width: 30%;">
+                <h3 class="form-signin-heading marge">Update Contact !</h3>
+                <input type="text" class="form-control marge" name="id_contact" placeholder="Username" value="<%= id %>" autofocus="" />
+                <input type="text" class="form-control marge" name="name" placeholder="name" required="" autofocus="" />
+                <input type="text" class="form-control marge" name="firstname" placeholder="firstname" required=""/>
+                <input type="text" class="form-control marge" name="email" placeholder="email" required=""/>
+                <input type="number" class="form-control marge" name="number" placeholder="Number phone" required=""/>
+                <button class="btn btn-lg btn-primary btn-block marge" name="Submit" value="Register" type="Submit">Add Contact</button>
             </form>
         </div>
-        <% }} %>
     </div>
+<%- include('../../partials/footer'); %> 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
-    <script>
-        function getPDFa() {
-        var doc = new jsPDF();
-        // We'll make our own renderer to skip this editor
-         var specialElementHandlers = {
-            '#getPDF': function(element, renderer){
-            return true;
-            },
-        '.controls': function(element, renderer){
-             return true;
-            }
-        };
-  
-    // All units are in the set measurement for the document
-    // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-    doc.fromHTML($('.zima').get(0), 15, 15, {
-      'width': 100, 
-      'elementHandlers': specialElementHandlers
-    });
-  
-    doc.save('Generated.pdf');
-  }
-
-    </script>
- 
-</div>
-
-<button id="getPDF" onclick="getPDFa()">Download PDF</button>
-
-    <!-- <a href="http://localhost:3000/home/infoContact/1.pdf" download> Télecharger mon fichier</a> -->
 </main>
-   <%- include('../../partials/footer'); %> 
 </body>
 </html>

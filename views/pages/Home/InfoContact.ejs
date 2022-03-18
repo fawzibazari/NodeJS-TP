@@ -6,21 +6,24 @@
     <%- include('../../partials/head'); %>
 </head>
 <body class="container" onload="vcard.save()">
-    <%- include('../../partials/header'); %>
+    <%- include('../../partials/headerco'); %>
 <main>
     <div class="zima">
     <div class="container">
-      <% for (item of test) { 
-          if(item.id == id){
-        %>
+        <% for (item of test) { %>
+
+            <% if (item == null) { %>
+       
+        <% }else if(item.id == id){ %>
+             
           <div class="wrapper" style="text-align: -webkit-center;">
                 <h3 class="form-signin-heading marge">Info User</h3>
                 <label for="mail">Mail :</label>
-                <p id="mail" name="mail"><%= item.mail %></p>
+                <p id="mail" name="mail"><%= item.email %></p>
                 <label for="username">Name :</label>
-                <p id="username" name="username"><%= item.username %></p>
+                <p id="username" name="username"><%= item.name %></p>
                 <label for="phone">phone :</label>
-                <p id="phone" class="phone"><%= item.phone %></p>
+                <p id="phone" class="phone"><%= item.number %></p>
                 <button onclick="getPDFa()" class="btn btn-lg btn-primary btn-block marge" >generer le PDF</button>
         </div>
 
@@ -125,7 +128,7 @@
       },
     }
         </script>
-        <% }} %>
+            <% }} %>
     </div>
 
     <!-- <img id="qr" src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" alt="vcard qr"> -->

@@ -37,6 +37,35 @@ async function register(req, res, next) {
   // res.send('hellodd')
 }
 
+async function addContact(req, res, next) {
+  const { name, firstname, email, number } = req.body;
+  const user = req.user.id;
+
+  let errors = [];
+  const newUser = new Contacts({
+    name,
+    firstname,
+    email,
+    number,
+    user
+  });
+
+  //hash password
+  // bcrypt.genSalt(10, (err, salt) => {
+  //   bcrypt.hash(newUser.password, salt, (err, hash) => {
+  //     if (err) throw err;
+  //     //hashae du mdp
+  //     newUser.password = hash;
+  //     //save du User
+      newUser.save().then((user) => {
+        res.redirect("/home");
+      });
+  //   });
+  // });
+  console.log(newUser);
+  // res.send('hellodd')
+}
+
 async function login(req, res, next) {
   passport.authenticate("local", {
     successRedirect: "/home",
@@ -105,17 +134,18 @@ async function getAllUserContacts(req, res, next) {
       table.push(newContact);
     }
     res.json(table);
+    return table
   });
 }
 async function newUserContact(req, res, next) {
   const newContact = new Contacts(req.body);
-  newContact.user = await User.findById(req.params.id);
+  newContact.user = await User.findById(req.user.id);
   await newContact.save();
 
-  const user = await User.findByIdAndUpdate(req.params.id, {
+  const user = await User.findByIdAndUpdate(req.user.id, {
     $push: { contacts: newContact },
   });
-
+  res.redirect("/home");
   res.status(200).json(newContact);
 }
 
@@ -126,4 +156,5 @@ module.exports = {
   newUserContact,
   GenerateExcel,
   getAllUserContacts,
+  addContact,
 };

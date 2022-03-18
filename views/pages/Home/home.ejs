@@ -4,7 +4,8 @@
     <%- include('../../partials/head'); %>
 </head>
 <body class="container">
-    <%- include('../../partials/header'); %>
+
+    <%- include('../../partials/headerco'); %>
 <main>
     <div class="container">
       Menu
@@ -18,20 +19,40 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
+
+        
         <tbody>
             <% for (item of test) { %>
-          <tr>
-            <th scope="row"><%= item.id %></th>
-            <td><%= item.username %></td>
-            <td><%= item.mail %></td>
-            <td> <%= item.phone %></td>
-            <td> <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-primary">Update</a>
-                <butto OnClick="alert('delete')"n type="button" class="btn btn-danger">Delate</button></td>
-          </tr>
-          <% } %>
+
+              <% if (item == null) { %>
+         
+          <% }else{ %> 
+            
+            <tr>
+              <th scope="row"><%= item.id %></th>
+              <td><%= item.firstname %></td>
+              <td><%= item.email %></td>
+              <td> <%= item.number %></td>
+              <td>
+                <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-secondary">information</a>
+                <a  href="users/home/updatecontact/<%= item.id %>" type="button" class="btn btn-primary">update</a>
+  
+  
+                <!-- <form class="form" action="/users/home/delete/<%= item.id %>" method="post">
+                <button type="submit" class="btn btn-danger">Delate</button>
+                </form> -->
+  
+                <form id ='delete' action='/users/home/delete/<%= item.id %>' method='DELETE'>
+                  <button type="submit" class="btn btn-danger">Delate</button>
+             </form>
+              </td>
+                
+            </tr>
+            
+            <% }} %>
       
         </tbody>
-    <a href="http://localhost:3000/home" download> Télecharger mon fichier</a>
+    <!-- <a href="http://localhost:3000/home" download> Télecharger mon fichier</a> -->
 
       </table>
     </div>
