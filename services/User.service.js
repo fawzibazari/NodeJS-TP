@@ -19,6 +19,7 @@ async function login ({username, password}) {
 
 async function getById(id) {
     const user = await userModel.findById(id);
+    console.log(user);
     return user.toJSON()
 }
 module.exports = {

@@ -31,6 +31,10 @@ router.get("/", async function (request, response) {
 });
 
 // Create a new user
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 router.get("/register", (req, res) => res.render("pages/register"));
 router.post("/register", register);
 router.get("/home/addContact", ensuteAuthenticated, (req, res) => res.render("pages/Home/addContact"));
@@ -47,9 +51,12 @@ router.post('/login' , (req, res, next)=> {
 });
 // router.get('/home')
 router.get('/home/delete/:contact_id',ensuteAuthenticated, deletecontact, (req, res) => res.render("pages/Home/home") );
+router.get('/home/excel',ensuteAuthenticated, GenerateExcel, (req, res) => res.render("pages/Home/home") );
 router.get("/:id", findById);
 router.get("/:id/excel", GenerateExcel);
 router.get("/:id/GetContact",ensuteAuthenticated, getAllUserContacts,), (req, res) => res.render("pages/Home/home",{test:table});
 router.post("/:id/contact", newUserContact);
+
+
 
 module.exports = router;

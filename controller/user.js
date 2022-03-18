@@ -81,7 +81,7 @@ async function findById(req, res, next) {
 }
 
 async function GenerateExcel(req, res, next) {
-  userServices.getById(req.params.id).then(async (user) => {
+  userServices.getById(req.user.id).then(async (user) => {
     let table = [];
     for (const key in user.contacts) {
       const ContactObject = user.contacts[key];
@@ -121,7 +121,7 @@ async function GenerateExcel(req, res, next) {
       rowIndex++;
     });
     wb.write("contact.xlsx");
-    res.json(ExcelFinalArr);
+    res.download(`./contact.xlsx`)
   });
 }
 
