@@ -3,7 +3,9 @@ var router = express.Router();
 var test = require('../cont');
 const Contacts = require("../models/contacts");
 const userServices = require("../services/User.service");
-router.get('/', function(req, res, next) {
+const { ensuteAuthenticated,  } = require('../utils/middleware');
+
+router.get('/', ensuteAuthenticated, function(req, res, next) {
 
   let table = [];
 

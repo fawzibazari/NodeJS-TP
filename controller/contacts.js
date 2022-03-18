@@ -48,9 +48,7 @@ const deletecontact = async (req, res) => {
       await userModel.findByIdAndUpdate(req.user.id, {
         $push: { contacts: contact },
       });
-        res.redirect("/home");
-        await res.send(contact);
-  
+        res.redirect("/home");  
         console.log("fin")
     }
 }

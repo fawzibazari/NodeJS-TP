@@ -146,7 +146,6 @@ async function newUserContact(req, res, next) {
     $push: { contacts: newContact },
   });
   res.redirect("/home");
-  res.status(200).json(newContact);
 }
 
 module.exports = {

@@ -9,6 +9,8 @@ const {
   getAllUserContacts,
 } = require("../controller/user");
 
+const { ensuteAuthenticated,  } = require('../utils/middleware');
+
 const {
   deletecontact,
   updateContact
@@ -31,9 +33,9 @@ router.get("/", async function (request, response) {
 // Create a new user
 router.get("/register", (req, res) => res.render("pages/register"));
 router.post("/register", register);
-router.get("/home/addContact", (req, res) => res.render("pages/Home/addContact"));
+router.get("/home/addContact", ensuteAuthenticated, (req, res) => res.render("pages/Home/addContact"));
 router.post("/home/addContact", newUserContact);
-router.get("/home/updatecontact/:id", (req, res) => res.render("pages/Home/UpdateContact", {id: req.params.id}));
+router.get("/home/updatecontact/:id",ensuteAuthenticated, (req, res) => res.render("pages/Home/UpdateContact", {id: req.params.id}));
 router.post("/home/updatecontact/:id",updateContact );
 
 router.get("/login", (req, res) => res.render("pages/login"));
@@ -44,10 +46,10 @@ router.post('/login' , (req, res, next)=> {
 })(req, res, next);
 });
 // router.get('/home')
-router.get('/home/delete/:contact_id', deletecontact, (req, res) => res.render("pages/Home/home") );
+router.get('/home/delete/:contact_id',ensuteAuthenticated, deletecontact, (req, res) => res.render("pages/Home/home") );
 router.get("/:id", findById);
 router.get("/:id/excel", GenerateExcel);
-router.get("/:id/GetContact", getAllUserContacts), (req, res) => res.render("pages/Home/home",{test:table});
+router.get("/:id/GetContact",ensuteAuthenticated, getAllUserContacts,), (req, res) => res.render("pages/Home/home",{test:table});
 router.post("/:id/contact", newUserContact);
 
 module.exports = router;

@@ -5,6 +5,6 @@ module.exports ={
           return next();
       }
       console.log('error_msg' , "please log in");
-      res.redirect('/users/login');
+      res.redirect('/');
   }
 }
