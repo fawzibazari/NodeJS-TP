@@ -18,7 +18,7 @@ router.get('/:id', function(req, res, next) {
       }
       // res.json(table);
       console.log(table)
-      res.render('pages/Home/infoContact', { title: 'Express',test:table });
+      res.render('pages/Home/infoContact', { title: 'Express',test:table,id:id });
     });
 
     // res.render('pages/Home/infoContact', { title: 'Express',id:id,test:test});

@@ -26,7 +26,6 @@
 
               <% if (item == null) { %>
          
-                <p>rien</p>
           <% }else{ %> 
             
             <tr>
@@ -36,7 +35,7 @@
               <td> <%= item.number %></td>
               <td>
                 <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-secondary">information</a>
-                <a  href="#" type="button" class="btn btn-primary">update</a>
+                <a  href="users/home/updatecontact/<%= item.id %>" type="button" class="btn btn-primary">update</a>
   
   
                 <!-- <form class="form" action="/users/home/delete/<%= item.id %>" method="post">
@@ -53,7 +52,7 @@
             <% }} %>
       
         </tbody>
-    <a href="http://localhost:3000/home" download> Télecharger mon fichier</a>
+    <!-- <a href="http://localhost:3000/home" download> Télecharger mon fichier</a> -->
 
       </table>
     </div>

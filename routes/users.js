@@ -6,11 +6,12 @@ const {
   findById,
   newUserContact,
   GenerateExcel,
-  getAllUserContacts
+  getAllUserContacts,
 } = require("../controller/user");
 
 const {
-  deletecontact
+  deletecontact,
+  updateContact
 } = require("../controller/contacts");
 var router = express.Router();
 const userModel = require("../models/models");
@@ -32,6 +33,9 @@ router.get("/register", (req, res) => res.render("pages/register"));
 router.post("/register", register);
 router.get("/home/addContact", (req, res) => res.render("pages/Home/addContact"));
 router.post("/home/addContact", newUserContact);
+router.get("/home/updatecontact/:id", (req, res) => res.render("pages/Home/UpdateContact", {id: req.params.id}));
+router.post("/home/updatecontact/:id",updateContact );
+
 router.get("/login", (req, res) => res.render("pages/login"));
 router.post('/login' , (req, res, next)=> {
   passport.authenticate('local', {
