@@ -13,7 +13,6 @@ const getcontacts = async (req, res) => {
 }
 
 const createcontact =  async (req, res) => {
-    console.log(req.body);
     const newcontact = new Contacts({
         name:req.body.name,
         firstname:req.body.firstname,
