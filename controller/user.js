@@ -107,6 +107,7 @@ async function getAllUserContacts(req, res, next) {
     res.json(table);
   });
 }
+
 async function newUserContact(req, res, next) {
   const newContact = new Contacts(req.body);
   newContact.user = await User.findById(req.params.id);

@@ -1,5 +1,6 @@
-const Contacts = require('../models/contacts')
-const userModel = require("../models/models");
+const Contacts = require('../models/contacts');
+const userServices = require("../services/User.service");
+const User = require('../models/models');
 
 
 const getcontacts = async (req, res) => {
@@ -19,7 +20,7 @@ const createcontact =  async (req, res) => {
         firstname:req.body.firstname,
         email:req.body.email,
         number:req.body.number,
-        created_on:req.body.created_on
+        created_on:req.body.created_on,
 })
     try {
           await newcontact.save();
@@ -29,7 +30,84 @@ const createcontact =  async (req, res) => {
     }
 }
 
+//addContact avec User
+async function newContactUser(req, res, next) {
+    const addContact = new Contacts(req.body);
+    addContact.user = await User.findById(req.params.id);
+    await addContact.save();
+  
+    //Mise à jour du tableau
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        $push: { contacts: addContact },
+      });
+  
+    res.status(200).json(user);
+  }
+
+  //updateContact avec User
+async function updateContact(req, res, next) {
+  const addContact = new Contacts(req.body);
+  addContact.user = await User.findById(req.params.id);
+  await addContact.save();
+
+    //Mise à jour du tableau
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        $push: { contacts: addContact },
+      });
+
+  res.status(200).json(user);
+}
+
+//showContact
+async function getAllUserContacts(req, res, next) {
+  userServices.getById(req.params.id).then(async (user) => {
+    let table = [];
+    for (const key in user.contacts) {
+      const ContactObject = user.contacts[key];
+      const newContact = await Contacts.findById(ContactObject);
+      table.push(newContact);
+    }
+    res.json(table);
+  });
+}
+
+
+//Solution 2 addContact
+async function createContact1(req, res) {
+    // Validate request
+    if (!req.body) {
+      res.status(400).send({ message: "Content can not be empty!" });
+      return;
+    }
+    // Create a Tutorial
+    const contact1 = new Contacts({
+        name:req.body.name,
+        firstname:req.body.firstname,
+        email:req.body.email,
+        number:req.body.number,
+        created_on:req.body.created_on
+    });
+
+    contact1.user = await User.findById(req.params.id);
+    console.log(contact1);
+    // Save Tutorial in the database
+    contact1
+      .save(contact1)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial."
+        });
+      });
+  };
+  
+
 module.exports = {
     getcontacts,
-    createcontact
+    newContactUser,
+    updateContact,
+    getAllUserContacts
 }
