@@ -4,7 +4,8 @@
     <%- include('../../partials/head'); %>
 </head>
 <body class="container">
-    <%- include('../../partials/header'); %>
+
+    <%- include('../../partials/headerco'); %>
 <main>
     <div class="container">
       Menu
@@ -18,15 +19,19 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
+
+        
         <tbody>
             <% for (item of test) { %>
           <tr>
             <th scope="row"><%= item.id %></th>
-            <td><%= item.username %></td>
-            <td><%= item.mail %></td>
-            <td> <%= item.phone %></td>
-            <td> <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-primary">Update</a>
-                <butto OnClick="alert('delete')"n type="button" class="btn btn-danger">Delate</button></td>
+            <td><%= item.firstname %></td>
+            <td><%= item.email %></td>
+            <td> <%= item.number %></td>
+            <td>
+              <a  href="/home/infoContact/<%= item.id %>" type="button" class="btn btn-secondary">information</a>
+              <a  href="#" type="button" class="btn btn-primary">update</a>
+              <butto OnClick="alert('delete')"n type="button" class="btn btn-danger">Delate</button></td>
           </tr>
           <% } %>
       

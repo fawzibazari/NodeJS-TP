@@ -15,7 +15,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var registerRouter = require("./routes/register");
 var homeRouter = require("./routes/home");
-var addContactRouter = require("./routes/addContact");
+// var addContactRouter = require("./routes/addContact");
 var infoContactRouter = require("./routes/infoContact");
 
 //Mongoose connection
@@ -53,7 +53,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/register", registerRouter);
 app.use("/home", homeRouter);
-app.use("/home/addContact", addContactRouter);
+// app.use("/home/addContact", addContactRouter);
 app.use("/home/infoContact", infoContactRouter);
 
 
