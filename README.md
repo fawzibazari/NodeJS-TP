@@ -1,6 +1,6 @@
 # NodeJS-TP
 
-Project done by Jean Raphael et Fawzi
+Project done by Jean Ayrton, Raphael et Fawzi
 
 ## Installation
 ```bash
