@@ -5,6 +5,7 @@ const {
   findById,
   newUserContact,
   GenerateExcel,
+  getAllUserContacts
 } = require("../controller/user");
 var router = express.Router();
 const userModel = require("../models/models");
@@ -33,6 +34,7 @@ router.post('/login' , (req, res, next)=> {
 });
 router.get("/:id", findById);
 router.get("/:id/excel", GenerateExcel);
+router.get("/:id/GetContact", getAllUserContacts);
 router.post("/:id/contact", newUserContact);
 
 module.exports = router;
