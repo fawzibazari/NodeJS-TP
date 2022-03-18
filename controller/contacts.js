@@ -45,18 +45,18 @@ async function newContactUser(req, res, next) {
   }
 
   //updateContact avec User
-async function updateContact(req, res, next) {
-  const addContact = new Contacts(req.body);
-  addContact.user = await User.findById(req.params.id);
-  await addContact.save();
+// async function updateContact(req, res, next) {
+//   const addContact = new Contacts(req.body);
+//   addContact.user = await User.findById(req.params.id);
+//   await addContact.save();
 
-    //Mise à jour du tableau
-    const user = await User.findByIdAndUpdate(req.params.id, {
-        $push: { contacts: addContact },
-      });
+//     //Mise à jour du tableau
+//     const user = await User.findByIdAndUpdate(req.params.id, {
+//         $push: { contacts: addContact },
+//       });
 
-  res.status(200).json(user);
-}
+//   res.status(200).json(user);
+// }
 
 //showContact
 async function getAllUserContacts(req, res, next) {
@@ -69,6 +69,45 @@ async function getAllUserContacts(req, res, next) {
     }
     res.json(table);
   });
+}
+
+//Mise à jour d'un contact
+const updateContact = async (req, res) => {
+    
+  const user = await Contacts.findById(req.params.user_id)
+  const contact = await Contacts.findByIdAndUpdate(
+      req.params.id,
+      {
+          name:req.body.name,
+          firstname:req.body.firstname,
+          email:req.body.email,
+          number:req.body.number,
+          created_on:req.body.created_on
+      }
+  )   
+  if(!contact){
+      return res.status(400).send('Le contact ne peut pas être modifié')
+  }
+  else{
+      await res.send(contact);
+  }
+}
+
+//Suppression d'un contact
+const deletecontact = async (req, res) => {
+
+        const contact = await Contacts.findByIdAndDelete(req.params.contact_id)
+        const user = await User.findById(req.params.id)
+        if(!user){
+            return res.status(400).send("Le contact n'existe pas")
+        }
+        else{
+          //mise à jour de la table
+          const user = await User.findByIdAndUpdate(req.params.id, {
+            $push: { contacts: contact },
+          });
+            await res.send(contact);
+        }
 }
 
 
@@ -109,5 +148,6 @@ module.exports = {
     getcontacts,
     newContactUser,
     updateContact,
-    getAllUserContacts
+    getAllUserContacts,
+    deletecontact
 }
